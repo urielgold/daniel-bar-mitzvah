@@ -47,7 +47,7 @@ main{position:relative;z-index:1;padding-inline:16px;padding-block:28px 56px;dis
 /* ---------- the card ---------- */
 .stage{width:min(100%,460px);perspective:1400px}
 .card{
-  position:relative;width:100%;aspect-ratio:512/768;
+  position:relative;width:100%;aspect-ratio:297.75/419.25;
   transform-style:preserve-3d;
   border-radius:6px;
   animation:arrive 1.6s cubic-bezier(.2,.8,.2,1) both;
@@ -56,7 +56,7 @@ main{position:relative;z-index:1;padding-inline:16px;padding-block:28px 56px;dis
 }
 .card .face{
   position:absolute;inset:0;border-radius:6px;overflow:hidden;
-  background:url(stone.jpg) center/cover var(--stone);
+  background:url(face.jpg) center/100% 100% var(--stone);
   box-shadow:0 40px 80px -20px rgba(0,0,0,.65),0 0 0 1px rgba(241,211,154,.25);
 }
 .card .gloss{
@@ -72,36 +72,20 @@ main{position:relative;z-index:1;padding-inline:16px;padding-block:28px 56px;dis
 }
 
 .content{
-  position:absolute;inset:0;justify-content:space-evenly;padding-bottom:5cqw !important;
+  position:absolute;inset:0;
   /* text sits inside the stone arch: arch spans ~11%–84% of width */
-  padding:4cqw 18cqw 0 13cqw;
-  display:flex;flex-direction:column;align-items:center;text-align:center;
-  color:var(--stone-ink);transform-style:preserve-3d;
+  padding:0;transform-style:preserve-3d;
 }
 
 /* 3D logo: stacked layers give it real thickness */
-.logo{position:relative;width:23cqw;aspect-ratio:233/271;margin-top:2cqw;transform-style:preserve-3d;
+.logo{position:absolute;transform-style:preserve-3d;
   animation:spin 2.4s .5s cubic-bezier(.3,.7,.2,1) both, sway 7s 3s ease-in-out infinite}
 .logo img{position:absolute;inset:0;width:100%;height:100%;backface-visibility:visible}
 .logo img.depth{filter:brightness(.45)}
 @keyframes spin{0%{opacity:0;transform:translateZ(40px) rotateY(-540deg) scale(.4)}60%{opacity:1}100%{opacity:1;transform:translateZ(40px) rotateY(0) scale(1)}}
 @keyframes sway{0%,100%{transform:translateZ(40px) rotateY(0)}50%{transform:translateZ(40px) rotateY(22deg)}}
 
-.lead{margin:3cqw 0 0;font-size:3.9cqw;line-height:1.4;font-weight:500;text-wrap:balance}
-.name{position:relative;width:72cqw;margin:0}
-.name img{display:block;width:100%;filter:drop-shadow(0 1.2cqw 1cqw rgba(13,26,51,.35))}
-.name::after{ /* gold light sweep across the name */
-  content:"";position:absolute;inset:0;pointer-events:none;
-  -webkit-mask:url(name.png) center/100% 100% no-repeat;mask:url(name.png) center/100% 100% no-repeat;
-  background:linear-gradient(105deg,transparent 35%,rgba(241,211,154,.95) 50%,transparent 65%) -150% 0/250% 100% no-repeat;
-  animation:sweep 5s 2.8s ease-in-out infinite;
-}
 @keyframes sweep{0%{background-position:150% 0}40%,100%{background-position:-150% 0}}
-.when{margin:0;font-size:4.1cqw;line-height:1.42}
-.when b{font-weight:700;color:var(--navy)}
-.parents{margin:2.4cqw 0 0;font-size:5cqw;font-weight:900;color:var(--stone-ink)}
-.fri{margin:1.2cqw 0 0;font-size:3.8cqw;line-height:1.4}
-.closing{margin:1.8cqw 0 0;font-size:3.8cqw;font-weight:500}
 
 /* ---------- gates: two stone doors sealed with the family logo ---------- */
 .doors{position:absolute;inset:-2px;z-index:5;display:flex;direction:ltr;perspective:1100px;border-radius:6px;
@@ -137,19 +121,22 @@ main{position:relative;z-index:1;padding-inline:16px;padding-block:28px 56px;dis
 .card.opened .doors{pointer-events:none}
 .card:not(.opened) .face,.card:not(.opened) .edge{visibility:hidden}
 /* content waits behind the doors until they open */
-.card:not(.opened) .rise,.card:not(.opened) .logo,.card:not(.opened) .name::after{animation-play-state:paused}
+.card:not(.opened) .rise,.card:not(.opened) .logo,.card:not(.opened) .sweep{animation-play-state:paused}
 
+.strip{position:absolute;display:block;max-width:none;pointer-events:none;user-select:none}
+.sweep{position:absolute;pointer-events:none;
+  -webkit-mask:url(name.png) center/100% 100% no-repeat;mask:url(name.png) center/100% 100% no-repeat;
+  background:linear-gradient(105deg,transparent 35%,rgba(241,211,154,.95) 50%,transparent 65%) -150% 0/250% 100% no-repeat;
+  animation:sweep 5s 2.6s ease-in-out infinite}
 .rise{animation:rise .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(.9s + var(--i)*.16s)}
 @keyframes rise{from{opacity:0;transform:translateY(3cqw)}to{opacity:1;transform:none}}
-.name.rise{animation-name:rise-name}
-@keyframes rise-name{from{opacity:0;transform:scale(1.12)}to{opacity:1;transform:none}}
 
 .hint{font-family:var(--f-label);font-size:.95rem;letter-spacing:.04em;color:rgba(239,230,214,.55);margin:-14px 0 0}
 
 /* ---------- below the card ---------- */
 .panel{width:min(100%,460px);display:flex;flex-direction:column;gap:22px;align-items:center;text-align:center}
 .eyebrow{font-family:var(--f-label);letter-spacing:.12em;color:var(--gold-hi);font-size:1.05rem;margin:0}
-.count{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%;direction:rtl}
+.count{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%;direction:ltr}
 .count div{border:1px solid rgba(201,154,91,.45);border-radius:4px;padding-block:12px 8px;background:rgba(29,52,102,.35)}
 .count strong{display:block;font-size:2rem;font-weight:700;color:var(--gold-hi);font-variant-numeric:tabular-nums;line-height:1}
 .count span{font-family:var(--f-label);font-size:.95rem;color:rgba(239,230,214,.75)}
@@ -172,11 +159,11 @@ main{position:relative;z-index:1;padding-inline:16px;padding-block:28px 56px;dis
 .foot{font-family:var(--f-label);font-size:.95rem;color:rgba(239,230,214,.5);margin:0}
 
 @media (prefers-reduced-motion:reduce){
-  .card,.logo,.rise,.name.rise,.seal{animation:none!important;opacity:1}
+  .card,.logo,.rise,.seal{animation:none!important;opacity:1}
   .door,.seam{transition:opacity .5s ease!important}
   .card.opened .door{transform:none!important;opacity:0}
   .logo{transform:translateZ(40px)}
-  .name::after{display:none}
+  .sweep{display:none}
 }
 </style>
 </head>
@@ -190,13 +177,21 @@ main{position:relative;z-index:1;padding-inline:16px;padding-block:28px 56px;dis
       <div class="edge"></div>
       <div class="face"></div>
       <div class="content">
-        <div class="logo" id="logo" aria-hidden="true"></div>
-        <p class="lead rise" style="--i:0">נרגשים ומודים לה׳ על הזכות להזמינכם<br>להשתתף בשמחת בר המצווה של בנינו היקר</p>
-        <h1 class="name rise" style="--i:1"><img src="name.png" alt="דניאל פנחס יהודה"></h1>
-        <p class="when rise" style="--i:2">אשר תתקיים בעזרת ה׳<br>בשבת פרשת <b>חיי שרה</b><br><span dir="ltr">6–7.11.26</span> למניינם<br>במלון בית שמואל<br>בירושלים</p>
-        <p class="parents rise" style="--i:3">אוריאל וונסה גולדשטיין</p>
-        <p class="fri rise" style="--i:4">קבלת שבת מוזיקלית<br>ותמונות משפחתיות<br>משעה 15:00</p>
-        <p class="closing rise" style="--i:5">מחכים לשמוח איתכם בשמחתנו</p>
+        <div class="logo" id="logo" aria-hidden="true" style="left:37.696%;top:4.617%;width:24.417%;height:20.201%"></div>
+        <img class="strip rise" src="s01.png" alt="" style="left:16.223%;top:26.775%;width:65.973%;height:5.614%;--i:0">
+        <img class="strip rise" src="s02.png" alt="" style="left:13.328%;top:31.065%;width:71.764%;height:5.614%;--i:1">
+        <img class="strip rise name-row" src="s03.png" alt="דניאל פנחס יהודה נ״י" style="left:10.797%;top:34.692%;width:73.746%;height:10.237%;--i:2">
+        <img class="strip rise" src="s04.png" alt="" style="left:29.307%;top:47.539%;width:39.802%;height:5.614%;--i:3">
+        <img class="strip rise" src="s05.png" alt="" style="left:30.173%;top:51.830%;width:38.069%;height:5.614%;--i:4">
+        <img class="strip rise" src="s06.png" alt="" style="left:33.779%;top:56.120%;width:30.860%;height:5.614%;--i:5">
+        <img class="strip rise" src="s07.png" alt="" style="left:33.044%;top:60.411%;width:32.326%;height:5.614%;--i:6">
+        <img class="strip rise" src="s08.png" alt="" style="left:39.722%;top:64.701%;width:18.974%;height:5.614%;--i:7">
+        <img class="strip rise" src="s09.png" alt="" style="left:25.746%;top:71.870%;width:46.930%;height:5.614%;--i:8">
+        <img class="strip rise" src="s10.png" alt="" style="left:32.402%;top:77.403%;width:33.616%;height:5.185%;--i:9">
+        <img class="strip rise" src="s11.png" alt="" style="left:33.355%;top:81.270%;width:31.710%;height:5.185%;--i:10">
+        <img class="strip rise" src="s12.png" alt="" style="left:38.101%;top:85.137%;width:22.218%;height:5.185%;--i:11">
+        <img class="strip rise" src="s13.png" alt="" style="left:24.038%;top:89.852%;width:50.343%;height:5.185%;--i:12">
+        <div class="sweep" aria-hidden="true" style="left:15.844%;top:33.094%;width:68.469%;height:16.268%"></div>
       </div>
       <div class="gloss" id="gloss"></div>
       <button class="doors" id="doors" type="button" aria-label="פתיחת ההזמנה">
