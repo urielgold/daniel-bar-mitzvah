@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d1a33">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://daniel-bar-mitzvah.vercel.app/">
+<meta property="og:title" content="בר המצווה של דניאל פנחס יהודה">
+<meta property="og:description" content="שבת פרשת חיי שרה · 6–7.11.26 · מלון בית שמואל, ירושלים. אוריאל וונסה גולדשטיין מזמינים אתכם לשמוח איתנו.">
+<meta property="og:image" content="https://daniel-bar-mitzvah.vercel.app/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="he_IL">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="logo.png">
+<title>בר המצווה של דניאל</title>
+<meta name="description" content="הזמנה לבר המצווה של דניאל פנחס יהודה גולדשטיין, שבת פרשת חיי שרה, מלון בית שמואל ירושלים">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Bellefair&display=swap">
+<style>
+/* Layout: one Jerusalem-stone card floating in deep navy night, tilting in 3D; details and actions below it. Single committed look. */
+:root{
+  --night:#0d1a33;
+  --night-2:#16284a;
+  --navy:#1d3466;
+  --stone:#efe6d6;
+  --stone-ink:#3a3329;
+  --gold:#c99a5b;
+  --gold-hi:#f1d39a;
+  --f-text:"Frank Ruhl Libre","David Libre","Times New Roman",serif;
+  --f-label:"Bellefair","Frank Ruhl Libre",serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{
+  margin:0;background:var(--night);color:var(--stone);
+  font-family:var(--f-text);direction:rtl;overflow-x:hidden;
+  background:radial-gradient(120% 70% at 50% 0%,var(--night-2) 0%,var(--night) 60%);
+  background-color:var(--night);
+}
+#sky{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+main{position:relative;z-index:1;padding-inline:16px;padding-block:28px 56px;display:flex;flex-direction:column;align-items:center;gap:36px}
+
+/* ---------- the card ---------- */
+.stage{width:min(100%,460px);perspective:1400px}
+.card{
+  position:relative;width:100%;aspect-ratio:512/768;
+  transform-style:preserve-3d;
+  border-radius:6px;
+  animation:arrive 1.6s cubic-bezier(.2,.8,.2,1) both;
+  container-type:inline-size;
+  cursor:grab;touch-action:pan-y;
+}
+.card .face{
+  position:absolute;inset:0;border-radius:6px;overflow:hidden;
+  background:url(stone.jpg) center/cover var(--stone);
+  box-shadow:0 40px 80px -20px rgba(0,0,0,.65),0 0 0 1px rgba(241,211,154,.25);
+}
+.card .gloss{
+  position:absolute;inset:0;border-radius:6px;pointer-events:none;mix-blend-mode:soft-light;
+  background:radial-gradient(60% 45% at var(--gx,30%) var(--gy,20%),rgba(255,255,255,.75),transparent 70%);
+}
+.card .edge{ /* thickness of the card */
+  position:absolute;inset:0;border-radius:6px;background:#b9a98e;transform:translateZ(-6px);
+}
+@keyframes arrive{
+  0%{opacity:0;transform:translateY(60px) rotateX(55deg) rotateZ(-6deg) scale(.85)}
+  100%{opacity:1;transform:none}
+}
+
+.content{
+  position:absolute;inset:0;justify-content:space-evenly;padding-bottom:5cqw !important;
+  /* text sits inside the stone arch: arch spans ~11%–84% of width */
+  padding:4cqw 18cqw 0 13cqw;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  color:var(--stone-ink);transform-style:preserve-3d;
+}
+
+/* 3D logo: stacked layers give it real thickness */
+.logo{position:relative;width:23cqw;aspect-ratio:233/271;margin-top:2cqw;transform-style:preserve-3d;
+  animation:spin 2.4s .6s cubic-bezier(.3,.7,.2,1) both, sway 7s 3s ease-in-out infinite}
+.logo img{position:absolute;inset:0;width:100%;height:100%;backface-visibility:visible}
+.logo img.depth{filter:brightness(.45)}
+@keyframes spin{0%{opacity:0;transform:translateZ(40px) rotateY(-540deg) scale(.4)}60%{opacity:1}100%{opacity:1;transform:translateZ(40px) rotateY(0) scale(1)}}
+@keyframes sway{0%,100%{transform:translateZ(40px) rotateY(0)}50%{transform:translateZ(40px) rotateY(22deg)}}
+
+.lead{margin:3cqw 0 0;font-size:3.9cqw;line-height:1.4;font-weight:500;text-wrap:balance}
+.name{position:relative;width:72cqw;margin:0}
+.name img{display:block;width:100%;filter:drop-shadow(0 1.2cqw 1cqw rgba(13,26,51,.35))}
+.name::after{ /* gold light sweep across the name */
+  content:"";position:absolute;inset:0;pointer-events:none;
+  -webkit-mask:url(name.png) center/100% 100% no-repeat;mask:url(name.png) center/100% 100% no-repeat;
+  background:linear-gradient(105deg,transparent 35%,rgba(241,211,154,.95) 50%,transparent 65%) -150% 0/250% 100% no-repeat;
+  animation:sweep 5s 2.8s ease-in-out infinite;
+}
+@keyframes sweep{0%{background-position:150% 0}40%,100%{background-position:-150% 0}}
+.when{margin:0;font-size:4.1cqw;line-height:1.42}
+.when b{font-weight:700;color:var(--navy)}
+.parents{margin:2.4cqw 0 0;font-size:5cqw;font-weight:900;color:var(--stone-ink)}
+.fri{margin:1.2cqw 0 0;font-size:3.8cqw;line-height:1.4}
+.closing{margin:1.8cqw 0 0;font-size:3.8cqw;font-weight:500}
+
+.rise{animation:rise .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(1.2s + var(--i)*.18s)}
+@keyframes rise{from{opacity:0;transform:translateY(3cqw)}to{opacity:1;transform:none}}
+.name.rise{animation-name:rise-name}
+@keyframes rise-name{from{opacity:0;transform:scale(1.12)}to{opacity:1;transform:none}}
+
+.hint{font-family:var(--f-label);font-size:.95rem;letter-spacing:.04em;color:rgba(239,230,214,.55);margin:-14px 0 0}
+
+/* ---------- below the card ---------- */
+.panel{width:min(100%,460px);display:flex;flex-direction:column;gap:22px;align-items:center;text-align:center}
+.eyebrow{font-family:var(--f-label);letter-spacing:.12em;color:var(--gold-hi);font-size:1.05rem;margin:0}
+.count{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%;direction:rtl}
+.count div{border:1px solid rgba(201,154,91,.45);border-radius:4px;padding-block:12px 8px;background:rgba(29,52,102,.35)}
+.count strong{display:block;font-size:2rem;font-weight:700;color:var(--gold-hi);font-variant-numeric:tabular-nums;line-height:1}
+.count span{font-family:var(--f-label);font-size:.95rem;color:rgba(239,230,214,.75)}
+.facts{width:100%;display:grid;gap:0;border-top:1px solid rgba(201,154,91,.35)}
+.facts div{display:flex;justify-content:space-between;gap:16px;padding-block:12px;border-bottom:1px solid rgba(201,154,91,.35);font-size:1.05rem}
+.facts dt{font-family:var(--f-label);color:var(--gold-hi);letter-spacing:.04em}
+.facts dd{margin:0;text-align:left}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding-inline:14px;
+  border-radius:4px;font-family:var(--f-text);font-size:1.05rem;font-weight:700;text-decoration:none;
+  color:var(--night);background:linear-gradient(180deg,var(--gold-hi),var(--gold));
+  border:0;cursor:pointer;transition:transform .15s ease, filter .15s ease;
+}
+.btn.ghost{background:transparent;color:var(--gold-hi);box-shadow:inset 0 0 0 1px var(--gold)}
+.btn.wide{grid-column:1/-1}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.btn:focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px}
+.btn svg{width:20px;height:20px;flex:none}
+.foot{font-family:var(--f-label);font-size:.95rem;color:rgba(239,230,214,.5);margin:0}
+
+@media (prefers-reduced-motion:reduce){
+  .card,.logo,.rise,.name.rise{animation:none!important;opacity:1}
+  .logo{transform:translateZ(40px)}
+  .name::after{display:none}
+}
+</style>
+</head>
+<body>
+
+
+<canvas id="sky" aria-hidden="true"></canvas>
+<main>
+  <div class="stage">
+    <article class="card" id="card" aria-label="הזמנה לבר המצווה של דניאל פנחס יהודה">
+      <div class="edge"></div>
+      <div class="face"></div>
+      <div class="content">
+        <div class="logo" id="logo" aria-hidden="true"></div>
+        <p class="lead rise" style="--i:0">נרגשים ומודים לה׳ על הזכות להזמינכם<br>להשתתף בשמחת בר המצווה של בנינו היקר</p>
+        <h1 class="name rise" style="--i:1"><img src="name.png" alt="דניאל פנחס יהודה"></h1>
+        <p class="when rise" style="--i:2">אשר תתקיים בעזרת ה׳<br>בשבת פרשת <b>חיי שרה</b><br><span dir="ltr">6–7.11.26</span> למניינם<br>במלון בית שמואל<br>בירושלים</p>
+        <p class="parents rise" style="--i:3">אוריאל וונסה גולדשטיין</p>
+        <p class="fri rise" style="--i:4">קבלת שבת מוזיקלית<br>ותמונות משפחתיות<br>משעה 15:00</p>
+        <p class="closing rise" style="--i:5">מחכים לשמוח איתכם בשמחתנו</p>
+      </div>
+      <div class="gloss" id="gloss"></div>
+    </article>
+  </div>
+  <p class="hint">גררו את ההזמנה כדי לסובב אותה</p>
+
+  <section class="panel" aria-labelledby="cd-title">
+    <p class="eyebrow" id="cd-title">עד קבלת השבת נשארו</p>
+    <div class="count" id="count">
+      <div><strong id="d">--</strong><span>ימים</span></div>
+      <div><strong id="h">--</strong><span>שעות</span></div>
+      <div><strong id="m">--</strong><span>דקות</span></div>
+      <div><strong id="s">--</strong><span>שניות</span></div>
+    </div>
+
+    <dl class="facts">
+      <div><dt>מתי</dt><dd>שישי–שבת, <span dir="ltr">6–7.11.26</span></dd></div>
+      <div><dt>פרשה</dt><dd>חיי שרה</dd></div>
+      <div><dt>היכן</dt><dd>מלון בית שמואל, ירושלים</dd></div>
+      <div><dt>שישי</dt><dd>קבלת שבת מוזיקלית ותמונות, מ־15:00</dd></div>
+    </dl>
+
+    <div class="actions">
+      <a class="btn" target="_blank" rel="noopener" href="https://waze.com/ul?q=%D7%9E%D7%9C%D7%95%D7%9F%20%D7%91%D7%99%D7%AA%20%D7%A9%D7%9E%D7%95%D7%90%D7%9C%20%D7%99%D7%A8%D7%95%D7%A9%D7%9C%D7%99%D7%9D&navigate=yes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>ניווט ב־Waze</a>
+      <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Beit%20Shmuel%20Hotel%20Jerusalem">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg>Google Maps</a>
+      <a class="btn ghost wide" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%D7%91%D7%A8%20%D7%94%D7%9E%D7%A6%D7%95%D7%95%D7%94%20%D7%A9%D7%9C%20%D7%93%D7%A0%D7%99%D7%90%D7%9C&dates=20261106T130000Z/20261107T160000Z&location=%D7%9E%D7%9C%D7%95%D7%9F%20%D7%91%D7%99%D7%AA%20%D7%A9%D7%9E%D7%95%D7%90%D7%9C%2C%20%D7%99%D7%A8%D7%95%D7%A9%D7%9C%D7%99%D7%9D&details=%D7%A9%D7%91%D7%AA%20%D7%A4%D7%A8%D7%A9%D7%AA%20%D7%97%D7%99%D7%99%20%D7%A9%D7%A8%D7%94.%20%D7%A7%D7%91%D7%9C%D7%AA%20%D7%A9%D7%91%D7%AA%20%D7%9E%D7%95%D7%96%D7%99%D7%A7%D7%9C%D7%99%D7%AA%20%D7%95%D7%AA%D7%9E%D7%95%D7%A0%D7%95%D7%AA%20%D7%9E%D7%A9%D7%A2%D7%94%2015%3A00">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>הוספה ליומן</a>
+    </div>
+    <p class="foot">אוריאל וונסה גולדשטיין</p>
+  </section>
+</main>
+
+<script>
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- 3D logo: stack of layers ---- */
+  const logo = document.getElementById('logo');
+  const LAYERS = 10;
+  for(let i=0;i<LAYERS;i++){
+    const img = new Image(); img.src='logo.png'; img.alt='';
+    const z = (i-(LAYERS-1))*0.9; // back layers further away
+    img.style.transform = `translateZ(${z}px)`;
+    if(i<LAYERS-1) img.className='depth';
+    logo.appendChild(img);
+  }
+
+  /* ---- card tilt: pointer drag + idle float ---- */
+  const card = document.getElementById('card'), gloss = document.getElementById('gloss');
+  let tx=0, ty=0, cx=0, cy=0, dragging=false, sx=0, sy=0, last=performance.now(), arrived=false;
+  setTimeout(()=>{ arrived=true; card.style.animation='none'; card.style.opacity=1; }, reduce?0:1600);
+
+  card.addEventListener('pointerdown',e=>{dragging=true;sx=e.clientX;sy=e.clientY;card.setPointerCapture(e.pointerId);card.style.cursor='grabbing';last=performance.now();});
+  card.addEventListener('pointermove',e=>{
+    if(dragging){ ty=Math.max(-40,Math.min(40,(e.clientX-sx)*.35)); tx=Math.max(-30,Math.min(30,-(e.clientY-sy)*.25)); last=performance.now(); }
+    else if(e.pointerType==='mouse'){ const r=card.getBoundingClientRect(); ty=((e.clientX-r.left)/r.width-.5)*18; tx=-((e.clientY-r.top)/r.height-.5)*14; last=performance.now(); }
+  });
+  const end=()=>{dragging=false;card.style.cursor='grab';};
+  card.addEventListener('pointerup',end); card.addEventListener('pointercancel',end);
+  card.addEventListener('pointerleave',()=>{ if(!dragging){tx=0;ty=0;} });
+
+  function frame(t){
+    if(arrived && !reduce){
+      let gx=tx, gy=ty;
+      if(!dragging && t-last>1800){ gx = Math.sin(t/2600)*5; gy = Math.sin(t/3400)*9; }
+      else if(!dragging){ tx*=.96; ty*=.96; }
+      cx += (gx-cx)*.08; cy += (gy-cy)*.08;
+      card.style.transform = `rotateX(${cx}deg) rotateY(${cy}deg)`;
+      gloss.style.setProperty('--gx', (50 - cy*2.2)+'%');
+      gloss.style.setProperty('--gy', (35 + cx*2.2)+'%');
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  /* ---- gold particles ---- */
+  const cv=document.getElementById('sky'), ctx=cv.getContext('2d');
+  let W,H,dpr, parts=[];
+  function size(){ dpr=Math.min(2,devicePixelRatio||1); W=cv.width=innerWidth*dpr; H=cv.height=innerHeight*dpr; }
+  size(); addEventListener('resize',size);
+  const N = reduce?40:90;
+  for(let i=0;i<N;i++) parts.push({x:Math.random(),y:Math.random(),r:Math.random()*1.8+.4,v:Math.random()*.00025+.00008,p:Math.random()*6.28,d:Math.random()*.0004-.0002});
+  function draw(t){
+    ctx.clearRect(0,0,W,H);
+    for(const q of parts){
+      if(!reduce){ q.y-=q.v; q.x+=q.d+Math.sin(t/2000+q.p)*.00015; if(q.y<-.02){q.y=1.02;q.x=Math.random();} }
+      const a=.35+.45*Math.sin(t/700+q.p*3);
+      const g=ctx.createRadialGradient(q.x*W,q.y*H,0,q.x*W,q.y*H,q.r*dpr*4);
+      g.addColorStop(0,`rgba(241,211,154,${Math.max(0,a)})`); g.addColorStop(1,'rgba(201,154,91,0)');
+      ctx.fillStyle=g; ctx.beginPath(); ctx.arc(q.x*W,q.y*H,q.r*dpr*4,0,6.283); ctx.fill();
+    }
+    if(!reduce) requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+
+  /* ---- countdown to Friday 6.11.26, 15:00 Israel time (UTC+2) ---- */
+  const target = Date.parse('2026-11-06T15:00:00+02:00');
+  const el = id=>document.getElementById(id);
+  const pad=n=>String(n).padStart(2,'0');
+  function tick(){
+    let s=Math.max(0,Math.floor((target-Date.now())/1000));
+    if(s===0){ el('cd-title').textContent='מזל טוב! השמחה התחילה'; }
+    el('d').textContent=Math.floor(s/86400); s%=86400;
+    el('h').textContent=pad(Math.floor(s/3600)); s%=3600;
+    el('m').textContent=pad(Math.floor(s/60)); el('s').textContent=pad(s%60);
+  }
+  tick(); setInterval(tick,1000);
+})();
+</script>
+
+</body>
+</html>
