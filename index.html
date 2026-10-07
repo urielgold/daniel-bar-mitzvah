@@ -104,7 +104,7 @@ main{position:relative;z-index:1;padding-inline:16px;padding-block:28px 56px;dis
 .closing{margin:1.8cqw 0 0;font-size:3.8cqw;font-weight:500}
 
 /* ---------- gates: two stone doors sealed with the family logo ---------- */
-.doors{position:absolute;inset:0;z-index:5;display:flex;direction:ltr;perspective:1100px;border-radius:6px;
+.doors{position:absolute;inset:-2px;z-index:5;display:flex;direction:ltr;perspective:1100px;border-radius:6px;
   border:0;padding:0;margin:0;background:none;cursor:pointer;font:inherit;color:inherit;transform:translateZ(1px)}
 .doors:focus-visible{outline:2px solid var(--gold-hi);outline-offset:4px}
 .door{position:relative;width:50%;height:100%;background:url(doors.jpg) 0 0/200% 100% var(--stone);
@@ -113,34 +113,31 @@ main{position:relative;z-index:1;padding-inline:16px;padding-block:28px 56px;dis
 .door.l{transform-origin:left center;border-radius:6px 0 0 6px}
 .door.r{transform-origin:right center;background-position:100% 0;border-radius:0 6px 6px 0}
 .door::before{content:"";position:absolute;inset:6cqw 0 6cqw 6cqw;border:.35cqw solid var(--gold);border-right:0;
-  border-radius:40cqw 0 0 0/32cqw 0 0 0;box-shadow:inset 0 0 0 1.2cqw transparent,inset 0 0 0 1.5cqw rgba(201,154,91,.5)}
+  border-radius:40cqw 0 0 0/32cqw 0 0 0}
 .door.r::before{inset:6cqw 6cqw 6cqw 0;border:.35cqw solid var(--gold);border-left:0;border-radius:0 40cqw 0 0/0 32cqw 0 0}
-.seam{position:absolute;inset:0 auto 0 50%;width:.5cqw;margin-left:-.25cqw;pointer-events:none;
+.seam{position:absolute;inset:6cqw auto 6cqw 50%;width:.35cqw;margin-left:-.175cqw;pointer-events:none;
   background:linear-gradient(180deg,transparent,var(--gold-hi) 20%,#fff6dd 50%,var(--gold-hi) 80%,transparent);
   box-shadow:0 0 3cqw 1cqw rgba(241,211,154,.55);transition:transform 1.2s ease,opacity 1.2s ease .2s}
-.seal-wrap{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3cqw;
+.seal-wrap{position:absolute;left:50%;top:38%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3cqw;
   pointer-events:none;transition:opacity .45s ease,transform .6s cubic-bezier(.3,1.5,.5,1)}
-.seal-kicker{font-family:var(--f-text);font-weight:700;font-size:4.6cqw;color:var(--navy);white-space:nowrap;
-  text-shadow:0 1px 0 rgba(255,255,255,.6)}
-.seal{width:32cqw;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
+.seal{width:24cqw;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
   background:radial-gradient(circle at 35% 30%,#fbf6ec,#e6d9c1 70%);
   box-shadow:0 0 0 .8cqw var(--gold),0 0 0 1.6cqw rgba(241,211,154,.35),0 2cqw 4cqw rgba(13,26,51,.4);
   animation:pulse 2.4s ease-in-out infinite}
 .seal img{width:62%}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 .8cqw var(--gold),0 0 0 1.6cqw rgba(241,211,154,.35),0 2cqw 4cqw rgba(13,26,51,.4)}
   50%{box-shadow:0 0 0 .8cqw var(--gold),0 0 0 3.4cqw rgba(241,211,154,0),0 2cqw 4cqw rgba(13,26,51,.4)}}
-.seal-cta{font-family:var(--f-text);font-weight:700;font-size:4.2cqw;color:var(--night);white-space:nowrap;
-  background:linear-gradient(180deg,var(--gold-hi),var(--gold));padding:1.6cqw 5cqw;border-radius:10cqw;
+.seal-cta{font-family:var(--f-text);font-weight:700;font-size:3.6cqw;color:var(--night);white-space:nowrap;
+  background:linear-gradient(180deg,var(--gold-hi),var(--gold));padding:1.4cqw 4.4cqw;border-radius:10cqw;
   box-shadow:0 1cqw 2.5cqw rgba(13,26,51,.3)}
 .card.opened .seal-wrap{opacity:0;transform:translate(-50%,-50%) scale(1.25)}
 .card.opened .door.l{transform:rotateY(-108deg);filter:brightness(.7);opacity:0}
 .card.opened .door.r{transform:rotateY(108deg);filter:brightness(.7);opacity:0}
 .card.opened .seam{transform:scaleX(60);opacity:0}
 .card.opened .doors{pointer-events:none}
+.card:not(.opened) .face,.card:not(.opened) .edge{visibility:hidden}
 /* content waits behind the doors until they open */
 .card:not(.opened) .rise,.card:not(.opened) .logo,.card:not(.opened) .name::after{animation-play-state:paused}
-.name{cursor:pointer;-webkit-tap-highlight-color:transparent}
-#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:10}
 
 .rise{animation:rise .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(.9s + var(--i)*.16s)}
 @keyframes rise{from{opacity:0;transform:translateY(3cqw)}to{opacity:1;transform:none}}
@@ -187,7 +184,6 @@ main{position:relative;z-index:1;padding-inline:16px;padding-block:28px 56px;dis
 
 
 <canvas id="sky" aria-hidden="true"></canvas>
-<canvas id="confetti" aria-hidden="true"></canvas>
 <main>
   <div class="stage">
     <article class="card" id="card" aria-label="הזמנה לבר המצווה של דניאל פנחס יהודה">
@@ -207,7 +203,6 @@ main{position:relative;z-index:1;padding-inline:16px;padding-block:28px 56px;dis
         <span class="door l"></span><span class="door r"></span>
         <span class="seam"></span>
         <span class="seal-wrap">
-          <span class="seal-kicker">הזמנה לבר המצווה של דניאל</span>
           <span class="seal"><img src="logo.png" alt=""></span>
           <span class="seal-cta">לחצו לפתיחת ההזמנה</span>
         </span>
@@ -300,37 +295,9 @@ main{position:relative;z-index:1;padding-inline:16px;padding-block:28px 56px;dis
     startTilt();
     card.classList.add('opened');
     doors.setAttribute('aria-hidden','true'); doors.tabIndex=-1;
-    setTimeout(()=>{ const r=card.getBoundingClientRect(); burst(r.left+r.width/2, r.top+r.height*.42, 90); }, reduce?0:750);
     setTimeout(()=>{ doors.hidden=true; }, 1700);
   }
   doors.addEventListener('click',()=>{ if(moved<10) openGates(); });
-
-  /* ---- confetti: once on opening, then on tapping the name ---- */
-  document.querySelector('.name').addEventListener('click',e=>{ if(opened && moved<10) burst(e.clientX,e.clientY,70); });
-  const cf=document.getElementById('confetti'), cx2=cf.getContext('2d');
-  const COLORS=['#f1d39a','#c99a5b','#e8c27a','#1d3466','#efe6d6'];
-  let bits=[], running=false;
-  function burst(x,y,n){
-    if(reduce) return;
-    const dpr=Math.min(2,devicePixelRatio||1);
-    cf.width=innerWidth*dpr; cf.height=innerHeight*dpr; cx2.setTransform(dpr,0,0,dpr,0,0);
-    for(let i=0;i<n;i++){
-      const a=-Math.PI/2+(Math.random()-.5)*Math.PI*1.1, v=5+Math.random()*7;
-      bits.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,w:5+Math.random()*5,h:8+Math.random()*7,
-        r:Math.random()*6.28,vr:(Math.random()-.5)*.3,f:Math.random()*6.28,c:COLORS[i%COLORS.length],life:0});
-    }
-    if(!running){ running=true; requestAnimationFrame(fall); }
-  }
-  function fall(){
-    cx2.clearRect(0,0,innerWidth,innerHeight);
-    bits=bits.filter(b=>b.y<innerHeight+30 && b.life<260);
-    for(const b of bits){
-      b.life++; b.vy+=.22; b.vx*=.985; b.vy*=.985; b.x+=b.vx+Math.sin(b.life/12+b.f)*.6; b.y+=b.vy; b.r+=b.vr;
-      cx2.save(); cx2.translate(b.x,b.y); cx2.rotate(b.r); cx2.scale(1,Math.cos(b.life/6+b.f));
-      cx2.globalAlpha=b.life>200?(260-b.life)/60:1; cx2.fillStyle=b.c; cx2.fillRect(-b.w/2,-b.h/2,b.w,b.h); cx2.restore();
-    }
-    if(bits.length) requestAnimationFrame(fall); else { running=false; cx2.clearRect(0,0,innerWidth,innerHeight); }
-  }
 
   function frame(t){
     if(arrived && !reduce){
