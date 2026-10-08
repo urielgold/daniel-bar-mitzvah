@@ -245,7 +245,7 @@ main{position:relative;z-index:1;padding-inline:16px;padding-block:28px 56px;dis
   </section>
 </main>
 <audio id="song" src="song.mp3" preload="auto" loop playsinline></audio>
-<button class="sound" id="sound" type="button" aria-label="הפעלת השיר" hidden>
+<button class="sound" id="sound" type="button" aria-label="הפעלת השיר">
   <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
   <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="m16 9 5 6M21 9l-5 6"/></svg>
 </button>
@@ -305,11 +305,26 @@ main{position:relative;z-index:1;padding-inline:16px;padding-block:28px 56px;dis
   function setPlaying(p){ snd.classList.toggle('playing',p); snd.setAttribute('aria-label',p?'השהיית השיר':'הפעלת השיר'); }
   song.addEventListener('play',()=>setPlaying(true));
   song.addEventListener('pause',()=>setPlaying(false));
+  let userPaused=false;
   function startMusic(){
-    snd.hidden=false;
+    if(userPaused || !song.paused) return;
     const r=song.play(); if(r&&r.catch) r.catch(()=>setPlaying(false));
   }
-  snd.addEventListener('click',()=>{ if(song.paused){ const r=song.play(); if(r&&r.catch) r.catch(()=>{}); } else song.pause(); });
+  snd.addEventListener('click',()=>{
+    if(song.paused){ userPaused=false; const r=song.play(); if(r&&r.catch) r.catch(()=>{}); }
+    else { userPaused=true; song.pause(); }
+  });
+  // 1) try right away (works where the browser allows sound on entry)
+  startMusic();
+  // 2) otherwise start on the guest's first touch anywhere on the page
+  const FIRST=['touchend','pointerup','click','keydown'];
+  function firstTouch(e){
+    if(snd.contains(e.target)) return;          // the gold button handles itself
+    startMusic();
+    if(!song.paused) FIRST.forEach(t=>removeEventListener(t,firstTouch,true));
+  }
+  FIRST.forEach(t=>addEventListener(t,firstTouch,true));
+  song.addEventListener('playing',()=>FIRST.forEach(t=>removeEventListener(t,firstTouch,true)),{once:true});
   // pause when the guest leaves the page, so the song doesn't keep playing in the background
   document.addEventListener('visibilitychange',()=>{ if(document.hidden && !song.paused){ song.pause(); song.dataset.resume='1'; }
     else if(!document.hidden && song.dataset.resume){ delete song.dataset.resume; song.play().catch(()=>{}); } });
