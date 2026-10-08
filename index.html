@@ -159,10 +159,6 @@ main{position:relative;z-index:1;padding-inline:16px;padding-block:28px 56px;dis
 .foot{font-family:var(--f-label);font-size:.95rem;color:rgba(239,230,214,.5);margin:0}
 
 /* ---------- song ---------- */
-.music{width:100%;display:flex;flex-direction:column;gap:12px;align-items:center}
-.music .frame{width:100%;aspect-ratio:16/9;max-width:100%;border-radius:4px;overflow:hidden;background:#000;
-  box-shadow:0 0 0 1px rgba(201,154,91,.45)}
-.music .frame iframe,.music .frame>div{width:100%;height:100%;display:block;border:0}
 .sound{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:20;
   width:48px;height:48px;border-radius:50%;border:0;display:grid;place-items:center;cursor:pointer;
   color:var(--night);background:linear-gradient(180deg,var(--gold-hi),var(--gold));box-shadow:0 6px 18px rgba(0,0,0,.45)}
@@ -237,11 +233,6 @@ main{position:relative;z-index:1;padding-inline:16px;padding-block:28px 56px;dis
       <div><dt>שישי</dt><dd>קבלת שבת מוזיקלית ותמונות, מ־15:00</dd></div>
     </dl>
 
-    <div class="music">
-      <p class="eyebrow">יש בך הכל</p>
-      <div class="frame"><div id="yt"></div></div>
-    </div>
-
     <div class="actions">
       <a class="btn" target="_blank" rel="noopener" href="https://waze.com/ul?q=%D7%9E%D7%9C%D7%95%D7%9F%20%D7%91%D7%99%D7%AA%20%D7%A9%D7%9E%D7%95%D7%90%D7%9C%20%D7%99%D7%A8%D7%95%D7%A9%D7%9C%D7%99%D7%9D&navigate=yes">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>ניווט ב־Waze</a>
@@ -253,6 +244,7 @@ main{position:relative;z-index:1;padding-inline:16px;padding-block:28px 56px;dis
     <p class="foot">אוריאל וונסה גולדשטיין</p>
   </section>
 </main>
+<audio id="song" src="song.mp3" preload="auto" loop playsinline></audio>
 <button class="sound" id="sound" type="button" aria-label="הפעלת השיר" hidden>
   <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
   <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="m16 9 5 6M21 9l-5 6"/></svg>
@@ -307,30 +299,20 @@ main{position:relative;z-index:1;padding-inline:16px;padding-block:28px 56px;dis
     } else addEventListener('deviceorientation',onTilt);
   }
 
-  /* ---- song (official YouTube player, starts with the gates) ---- */
-  const YT_ID='qgdN6O16-5I', snd=document.getElementById('sound');
-  let yt=null, ytReady=false, wantPlay=false;
+  /* ---- song: starts with the gates, gold button to pause/resume ---- */
+  const song=document.getElementById('song'), snd=document.getElementById('sound');
+  song.volume=.85;
   function setPlaying(p){ snd.classList.toggle('playing',p); snd.setAttribute('aria-label',p?'השהיית השיר':'הפעלת השיר'); }
-  window.onYouTubeIframeAPIReady=function(){
-    yt=new YT.Player('yt',{videoId:YT_ID,
-      playerVars:{playsinline:1,rel:0,modestbranding:1,loop:1,playlist:YT_ID},
-      events:{
-        onReady:()=>{ ytReady=true; if(wantPlay) yt.playVideo(); },
-        onStateChange:e=>setPlaying(e.data===1)
-      }});
-  };
-  const ytTag=document.createElement('script'); ytTag.src='https://www.youtube.com/iframe_api'; document.head.appendChild(ytTag);
+  song.addEventListener('play',()=>setPlaying(true));
+  song.addEventListener('pause',()=>setPlaying(false));
   function startMusic(){
-    wantPlay=true; snd.hidden=false;
-    if(ytReady) yt.playVideo();
+    snd.hidden=false;
+    const r=song.play(); if(r&&r.catch) r.catch(()=>setPlaying(false));
   }
-  snd.addEventListener('click',()=>{
-    if(!ytReady) return;
-    if(yt.getPlayerState()===1){ yt.pauseVideo(); return; }
-    yt.playVideo();
-    // some phones only allow sound after a tap on the player itself
-    setTimeout(()=>{ if(yt.getPlayerState()!==1) document.querySelector('.music').scrollIntoView({behavior:'smooth',block:'center'}); },900);
-  });
+  snd.addEventListener('click',()=>{ if(song.paused){ const r=song.play(); if(r&&r.catch) r.catch(()=>{}); } else song.pause(); });
+  // pause when the guest leaves the page, so the song doesn't keep playing in the background
+  document.addEventListener('visibilitychange',()=>{ if(document.hidden && !song.paused){ song.pause(); song.dataset.resume='1'; }
+    else if(!document.hidden && song.dataset.resume){ delete song.dataset.resume; song.play().catch(()=>{}); } });
 
   /* ---- opening the gates ---- */
   const doors=document.getElementById('doors');
