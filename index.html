@@ -362,8 +362,8 @@ main{position:relative;z-index:1;padding-inline:16px;padding-block:28px 56px;dis
   let W,H,dpr, parts=[];
   function size(){ dpr=Math.min(2,devicePixelRatio||1); W=cv.width=innerWidth*dpr; H=cv.height=innerHeight*dpr; }
   size(); addEventListener('resize',size);
-  const N = reduce?40:90;
-  for(let i=0;i<N;i++) parts.push({x:Math.random(),y:Math.random(),r:Math.random()*1.8+.4,v:Math.random()*.00025+.00008,p:Math.random()*6.28,d:Math.random()*.0004-.0002});
+  const N = reduce?28:63;
+  for(let i=0;i<N;i++) parts.push({x:Math.random(),y:Math.random(),r:(Math.random()*1.8+.4)*.6,v:Math.random()*.00025+.00008,p:Math.random()*6.28,d:Math.random()*.0004-.0002});
   function draw(t){
     ctx.clearRect(0,0,W,H);
     for(const q of parts){
